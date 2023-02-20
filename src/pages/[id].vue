@@ -1,0 +1,310 @@
+<script setup lang="ts">
+import { defineComponent } from 'vue'
+import slider from '~/assets/images/illustrations/sidebar.png'
+</script>
+
+<script lang="ts">
+export default defineComponent({
+  name: 'PokemonView',
+  data() {
+    return {
+      grid: true,
+      knowledge: 82,
+    }
+  },
+  async beforeCreate() {
+    console.log('pedro', this.$route.params.id)
+  },
+})
+</script>
+
+<template>
+  <VRow>
+    <VCol cols="12">
+      <VCard>
+        <VCardText class="text-center pt-4">
+          <VAvatar :size="180">
+            <VImg
+              v-if="slider"
+              :src="slider"
+            />
+            <span
+              v-else
+              class="text-5xl font-weight-semibold"
+            >
+              Ivysaur
+            </span>
+          </VAvatar>
+          <h6 class="text-h6 mt-4">
+            Ivysaur
+          </h6>
+          <h6 class="text-h6 mt-4">
+            Se alimenta de la energía que brota de la tierra de Galar absorbiéndola por el núcleo del pecho
+          </h6>
+        </VCardText>
+        <VCardText class="d-flex justify-center flex-wrap mt-3">
+          <div class="d-flex align-center me-8 mb-2">
+            <VAvatar
+              :size="38"
+              class="me-3"
+              color="primary"
+              rounded
+              variant="tonal"
+            >
+              <VIcon
+                size="24"
+                icon="mdi-weight-kilogram"
+              />
+            </VAvatar>
+            <div>
+              <h6 class="text-base font-weight-semibold">
+                Peso
+              </h6>
+              <span class="text-sm">96Kg</span>
+            </div>
+          </div>
+          <div class="d-flex align-center me-4 mb-2">
+            <VAvatar
+              :size="38"
+              class="me-3"
+              color="primary"
+              rounded
+              variant="tonal"
+            >
+              <VIcon
+                size="24"
+                icon="mdi-arrow-expand-vertical"
+              />
+            </VAvatar>
+            <div>
+              <h6 class="text-base font-weight-semibold">
+                Altura
+              </h6>
+              <span class="text-sm">0.7m</span>
+            </div>
+          </div>
+          <div class="d-flex align-center me-4 mb-2">
+            <VAvatar
+              :size="38"
+              class="me-3"
+              color="primary"
+              rounded
+              variant="tonal"
+            >
+              <VIcon
+                size="24"
+                icon="mdi-current-ac"
+              />
+            </VAvatar>
+            <div>
+              <h6 class="text-base font-weight-semibold">
+                Sexo
+              </h6>
+              <span class="text-sm">Desconocido</span>
+            </div>
+          </div>
+        </VCardText>
+        <VDivider />
+        <VRow>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <VCardText>
+              <VList class="card-list mt-2">
+                <VListItem>
+                  <VListItemTitle class="mb-4">
+                    <h6 class="text-base font-weight-semibold">
+                      Tipos:
+                    </h6>
+                    <VBtn
+                      class="me-2"
+                      color="primary"
+                      size="x-small"
+                    >
+                      Fire
+                      <VIcon
+                        end
+                        icon="mdi-omega"
+                      />
+                    </VBtn>
+                  </VListItemTitle>
+                </VListItem>
+                <VListItem class="mb-4">
+                  <VListItemTitle>
+                    <h6 class="text-base font-weight-semibold">
+                      Debilidad:
+                    </h6>
+                    <VBtn
+                      class="me-2"
+                      color="primary"
+                      size="x-small"
+                    >
+                      Fire
+                      <VIcon
+                        end
+                        icon="mdi-omega"
+                      />
+                    </VBtn>
+                  </VListItemTitle>
+                </VListItem>
+                <VListItem class="mb-4">
+                  <VListItemTitle>
+                    <h6 class="text-base font-weight-semibold">
+                      Evoluciones:
+                    </h6>
+                    <div class="v-avatar-group">
+                      <VAvatar :size="90">
+                        <VImg :src="slider" />
+                        <VTooltip
+                          activator="parent"
+                          location="bottom"
+                        >
+                          John Doe
+                        </VTooltip>
+                      </VAvatar>
+                      <VAvatar :size="90">
+                        <VImg :src="slider" />
+                        <VTooltip
+                          activator="parent"
+                          location="bottom"
+                        >
+                          Jennie Obrien
+                        </VTooltip>
+                      </VAvatar>
+                      <VAvatar :size="90">
+                        <VImg :src="slider" />
+                        <VTooltip
+                          activator="parent"
+                          location="bottom"
+                        >
+                          Peter Harper
+                        </VTooltip>
+                      </VAvatar>
+                      <VAvatar :size="90">
+                        <VImg :src="slider" />
+                        <VTooltip
+                          activator="parent"
+                          location="bottom"
+                        >
+                          Vivian Padilla
+                        </VTooltip>
+                      </VAvatar>
+                    </div>
+                  </VListItemTitle>
+                </VListItem>
+              </VList>
+            </VCardText>
+          </VCol>
+          <VCol
+            cols="12"
+            md="6"
+          >
+            <VCardText>
+              <div class="my-2">
+                <div class="d-flex font-weight-semibold mt-3 mb-2">
+                  <h6 class="text-base font-weight">
+                    PS
+                  </h6>
+                  <VSpacer />
+                </div>
+                <VProgressLinear
+                  :model-value="65"
+                  color="primary"
+                  height="8"
+                  max="165"
+                  rounded
+                  rounded-bar
+                />
+              </div>
+              <div class="my-2">
+                <div class="d-flex font-weight-semibold mt-3 mb-2">
+                  <h6 class="text-base font-weight">
+                    Ataque
+                  </h6>
+                  <VSpacer />
+                </div>
+                <VProgressLinear
+                  :model-value="65"
+                  color="primary"
+                  height="8"
+                  max="165"
+                  rounded
+                  rounded-bar
+                />
+              </div>
+              <div class="my-2">
+                <div class="d-flex font-weight-semibold mt-3 mb-2">
+                  <h6 class="text-base font-weight">
+                    Defensa
+                  </h6>
+                  <VSpacer />
+                </div>
+                <VProgressLinear
+                  :model-value="65"
+                  color="primary"
+                  height="8"
+                  max="165"
+                  rounded
+                  rounded-bar
+                />
+              </div>
+              <div class="my-2">
+                <div class="d-flex font-weight-semibold mt-3 mb-2">
+                  <h6 class="text-base font-weight">
+                    Ataque especial
+                  </h6>
+                  <VSpacer />
+                </div>
+                <VProgressLinear
+                  :model-value="65"
+                  color="primary"
+                  height="8"
+                  max="165"
+                  rounded
+                  rounded-bar
+                />
+              </div>
+              <div class="my-2">
+                <div class="d-flex font-weight-semibold mt-3 mb-2">
+                  <h6 class="text-base font-weight">
+                    Defensa especial
+                  </h6>
+                  <VSpacer />
+                </div>
+                <VProgressLinear
+                  :model-value="65"
+                  color="primary"
+                  height="8"
+                  max="165"
+                  rounded
+                  rounded-bar
+                />
+              </div>
+              <div class="my-2">
+                <div class="d-flex font-weight-semibold mt-3 mb-2">
+                  <h6 class="text-base font-weight">
+                    Velocidad
+                  </h6>
+                  <VSpacer />
+                </div>
+                <VProgressLinear
+                  :model-value="65"
+                  color="primary"
+                  height="8"
+                  max="165"
+                  rounded
+                  rounded-bar
+                />
+              </div>
+            </VCardText>
+          </VCol>
+        </VRow>
+      </VCard>
+    </VCol>
+  </VRow>
+</template>
+
+<style lang="scss">
+@use "../assets/scss/main.scss";
+</style>

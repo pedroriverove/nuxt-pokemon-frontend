@@ -1,0 +1,13 @@
+- npm i -g @nuxt/cli
+- npx nuxi init nuxt-project-front
+- npm i sass
+- npm i @mdi/font
+- npm i vuetify
+- npm i @vueuse/nuxt
+- npm i eslint
+- npm i eslint-config-prettier
+- npm i eslint-plugin-prettier
+- npm i eslint-plugin-vue
+- npm i @antfu/eslint-config
+- npm i axios
+- npm i vue3-apexcharts

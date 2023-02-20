@@ -1,0 +1,29 @@
+<VAppBar
+        :elevation="9"
+        color="info"
+        density="comfortable"
+>
+    <template v-slot:append>
+        <RouterLink
+                class="app-logo d-flex align-center gap-x-3 app-title-wrapper"
+                to="/"
+        >
+            <VNodeRenderer
+                    :nodes="config.app.logo"
+                    @click="clickRefresh"
+            />
+        </RouterLink>
+        <VSpacer></VSpacer>
+        <VBtn
+                @click="themeConfig().toggleTheme"
+                color="warning"
+                icon
+                variant="text"
+        >
+            <VIcon
+                    :icon="themeConfig().getIcon"
+                    size="24"
+            />
+        </VBtn>
+    </template>
+</VAppBar>
