@@ -1,0 +1,138 @@
+<VCard v-if="notFound" color="primary">
+    <VCarousel
+            :continuous="false"
+            :delimiter-icon="() => h(iconRenderer, { icon: 'mdi-pokemon-go', size: '10' })"
+            :show-arrows="false"
+            class="carousel-delimiter-top-end"
+            :height="140"
+            hide-delimiter-background
+    >
+        <VCarouselItem>
+            <VCardText>
+                <VRow>
+                    <VCol cols="12">
+                        <h6 class="text-h6 text-white mb-1 mt-2">
+                            No hay ningún pokemon que coincida con tu búsqueda
+                        </h6>
+                    </VCol>
+                </VRow>
+            </VCardText>
+        </VCarouselItem>
+    </VCarousel>
+</VCard>
+<VCard v-else color="primary">
+    <VCarousel
+            :continuous="false"
+            :delimiter-icon="() => h(iconRenderer, { icon: 'mdi-pokemon-go', size: '10' })"
+            :show-arrows="false"
+            class="carousel-delimiter-top-end"
+            height="auto"
+            hide-delimiter-background
+    >
+        <VCarouselItem>
+            <VCardText>
+                <VRow>
+                    <VCol cols="4">
+                        <h6 class="text-h6 text-white mb-1">
+                            {{ capitalizedLabel(pokemon.name) }}
+                        </h6>
+                        <p class="text-sm mb-0">
+                            #{{ pokemon.order }}
+                        </p>
+                    </VCol>
+                    <VCol cols="8">
+                        <VAvatar
+                                class="me-2"
+                                size="40"
+                                v-for="evolution in pokemon.evolutions"
+                                variant="tonal"
+                        >
+                            <VTooltip
+                                    activator="parent"
+                                    location="bottom"
+                            >
+                                {{ capitalizedLabel(evolution.name) }}
+                            </VTooltip>
+                            <VImg :src="slideImg(evolution)"/>
+                        </VAvatar>
+                    </VCol>
+                    <VCol
+                            cols="12"
+                            order-sm="1"
+                            order="2"
+                            sm="6"
+                    >
+                        <VRow>
+                            <VCol
+                                    class="pb-0"
+                                    cols="12"
+                            >
+                                <p class="font-weight-semibold">
+                                    Tipo
+                                </p>
+                            </VCol>
+                            <VCol
+                                    v-for="pokemonType in pokemon.types"
+                                    :key="pokemonType"
+                                    class="text-no-wrap"
+                                    cols="6"
+                            >
+                                <VBtn
+                                        size="x-small"
+                                        :color="resolvePokemonTypes(pokemonType).color"
+                                        class="me-2"
+                                >
+                                    {{ pokemonType }}
+                                    <VIcon
+                                            end
+                                            :icon="resolvePokemonTypes(pokemonType).icon"
+                                    />
+                                </VBtn>
+                            </VCol>
+                        </VRow>
+                        <VRow>
+                            <VCol
+                                    cols="6"
+                                    class="text-no-wrap"
+                            >
+                                <VChip
+                                        label
+                                        class="me-2"
+                                >
+                                    Peso
+                                </VChip>
+                                <span>{{ convertBase(pokemon.weight) }}kg</span>
+                            </VCol>
+                            <VCol
+                                    cols="6"
+                                    class="text-no-wrap"
+                            >
+                                <VChip
+                                        label
+                                        class="me-2"
+                                >
+                                    Altura
+                                </VChip>
+                                <span>{{ convertBase(pokemon.height) }}m</span>
+                            </VCol>
+                        </VRow>
+                    </VCol>
+                    <VCol
+                            class="position-relative text-center"
+                            cols="12"
+                            order-sm="2"
+                            order="1"
+                            sm="6"
+                    >
+                        <img
+                                v-if="pokemon"
+                                :src="src"
+                                class="card-website-analytics-img"
+                                :alt="pokemon.name"
+                        />
+                    </VCol>
+                </VRow>
+            </VCardText>
+        </VCarouselItem>
+    </VCarousel>
+</VCard>

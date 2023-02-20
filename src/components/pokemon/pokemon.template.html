@@ -1,0 +1,130 @@
+<div class="loading">
+    <VProgressCircular
+            v-show="showLoading"
+            :indeterminate="showLoading"
+            :size="70"
+            :width="6"
+            color="info"
+    />
+</div>
+<VRow
+        v-show="!showLoading"
+        align="start"
+        justify="center"
+>
+    <VCol
+            cols="12"
+            md="6"
+    >
+        <VTextField
+                v-model="message"
+                clear-icon="mdi-close-circle"
+                clearable
+                type="text"
+                variant="outlined"
+        >
+            <template v-slot:prepend>
+                <VTooltip location="bottom">
+                    <template v-slot:activator="{ props }">
+                        <VIcon
+                                icon="mdi-help-circle-outline"
+                                v-bind="props"
+                        />
+                    </template>
+                    Buscar un pokemon mediante el nombre
+                </VTooltip>
+            </template>
+            <template v-slot:append-inner>
+                <VFadeTransition leave-absolute>
+                    <VProgressCircular
+                            v-if="loadingSearch"
+                            color="info"
+                            indeterminate
+                            size="24"
+                    />
+                </VFadeTransition>
+            </template>
+            <template v-slot:append>
+                <VBtn
+                        class="mt-n3"
+                        color="info"
+                        size="large"
+                        @click="clickSearch"
+                >
+                    <VIcon icon="mdi-table-search"/>
+                    <span class="ms-3">
+                      Buscar
+                    </span>
+                </VBtn>
+            </template>
+        </VTextField>
+    </VCol>
+</VRow>
+<VRow
+        v-if="!showLoading && !grid"
+        align="start"
+        justify="center"
+>
+    <VCol
+            :key="pokemonOnly"
+            cols="12"
+            md="8"
+    >
+        <PokemonCardComponent :pokemon-ref="pokemonOnly"/>
+    </VCol>
+</VRow>
+<VRow v-show="!showLoading && grid">
+    <VCol
+            v-for="pokemon in pokemonList"
+            :key="pokemon"
+            cols="12"
+            md="6"
+    >
+        <PokemonCardComponent :pokemon-ref="pokemon"/>
+    </VCol>
+</VRow>
+<VRow v-show="!showLoading && grid">
+    <VCol
+            cols="12"
+            md="12"
+    >
+        <div class="text-center mt-4">
+            <VBtn
+                    :disabled="!previous"
+                    :loading="loadingPrevious"
+                    class="mr-2"
+                    color="info"
+                    @click="getPreviousPokemon"
+            >
+                <VIcon
+                        start
+                        icon="mdi-chevron-left"
+                />
+                Anterior
+                <template v-slot:loader>
+                    <span class="custom-loader">
+                        <VIcon icon="mdi-refresh"/>
+                    </span>
+                </template>
+            </VBtn>
+            <VBtn
+                    :disabled="!next"
+                    :loading="loadingNext"
+                    class="ml-2"
+                    color="info"
+                    @click="getNextPokemon"
+            >
+                Próximo
+                <VIcon
+                        end
+                        icon="mdi-chevron-right"
+                />
+                <template v-slot:loader>
+                    <span class="custom-loader">
+                      <VIcon icon="mdi-refresh"/>
+                    </span>
+                </template>
+            </VBtn>
+        </div>
+    </VCol>
+</VRow>
