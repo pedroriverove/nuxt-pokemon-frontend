@@ -71,15 +71,9 @@ export default class PokemonService {
     try {
       const { data } = await axios.get(`${this.url}/pokemon-species/${pokemon.order}`)
 
-      console.log('pedro-1', data)
-
-      const prueba = data.flavor_text_entries.filter((el: any) => {
+      return data.flavor_text_entries.filter((el: any) => {
         return el.language.name === 'es'
       })[0].flavor_text
-
-      console.log('pedro-2', prueba)
-
-      return prueba
     }
     catch (err) {
       // eslint-disable-next-line no-console

@@ -23,7 +23,7 @@ export default defineComponent({
       resolvePokemonStats,
       resolvePokemonTypes,
       slider,
-      detail: '',
+      detail: [],
     }
   },
   async beforeMount() {

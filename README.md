@@ -1,42 +1,42 @@
-# Nuxt 3 Minimal Starter
+# Nuxt pokemon frontend
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+### Used technology:
 
-## Setup
+- [Nuxt](https://nuxt.com/)
+- [Vue3](https://vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/en/)
+- [PokeAPI](https://pokeapi.co/)
+- [Axios](https://axios-http.com/)
 
-Make sure to install the dependencies:
+## Requirements
 
-```bash
-# yarn
-yarn install
+- [Node.js](https://nodejs.org/) v16 or newer, [NPM](https://www.npmjs.com/) package manager
 
-# npm
-npm install
+## Getting Started
 
-# pnpm
-pnpm install
+1. Clone repository
+```
+$ git clone https://github.com/pedroriverove/nuxt-pokemon-frontend.git
+```
+2. Change into the working directory
+```
+$ cd nuxt-pokemon-frontend
+```
+3. Install project dependencies
+```
+$ npm install
+```
+4. Finally, launch the app
+```
+$ npm run dev
 ```
 
-## Development Server
+## Scripts
 
-Start the development server on http://localhost:3000
+- `npm run dev` — Start the development server on http://localhost:3000
+- `npm run build` — Build the application for production
+- `npm run preview` — Locally preview production build
 
-```bash
-npm run dev
-```
+## Screenshot
 
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+![](./screenshot.png)

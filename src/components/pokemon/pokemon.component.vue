@@ -37,9 +37,9 @@ export default defineComponent({
   async beforeMount() {
     await this.getPokemon()
 
-    setInterval(() => {
+    setTimeout(() => {
       this.showLoading = false
-    }, 2500)
+    }, 1500)
   },
   methods: {
     async getPokemon() {
@@ -66,7 +66,7 @@ export default defineComponent({
         setTimeout(() => {
           this.loadingNext = false
           window.scrollTo(0, 0)
-        }, 2500)
+        }, 1500)
       }
       else if (text === 'previous') {
         this.loadingPrevious = true
@@ -74,7 +74,7 @@ export default defineComponent({
         setTimeout(() => {
           this.loadingPrevious = false
           window.scrollTo(0, 0)
-        }, 2500)
+        }, 1500)
       }
     },
     async clickSearch() {

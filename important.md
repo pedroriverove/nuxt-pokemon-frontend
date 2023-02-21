@@ -1,5 +1,4 @@
-- npm i -g @nuxt/cli
-- npx nuxi init nuxt-project-front
+- npx nuxi init nuxt-pokemon-frontend
 - npm i sass
 - npm i @mdi/font
 - npm i vuetify

@@ -105,7 +105,7 @@
                         </VListItemTitle>
                     </VListItem>
                     <VListItem class="mb-4">
-                        <VListItemTitle>
+                        <VListItemTitle v-if="pokemon.evolutions.length" >
                             <h6 class="text-base font-weight-semibold">
                                 Evoluciones:
                             </h6>
@@ -113,7 +113,8 @@
                                 <VAvatar
                                         rounded="0"
                                         size="140"
-                                        v-for="evolution in pokemon.evolutions"
+                                        v-for="(evolution, key) in pokemon.evolutions"
+                                        :key="key"
                                 >
                                     <VImg :src="slideImg(evolution)"/>
                                     <VTooltip
