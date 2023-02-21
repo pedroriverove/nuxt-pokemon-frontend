@@ -1,8 +1,8 @@
 <script lang="ts">
 import axios from 'axios'
-import { VIcon } from 'vuetify/components'
 import { defineComponent } from 'vue'
 import PokemonService from '~/services/pokemon.service'
+import PokemonDetailComponent from '~/components/pokemon-detail/pokemon-detail.component.vue'
 import {
   capitalizedLabel,
   convertBase,
@@ -11,12 +11,20 @@ import {
 
 export default defineComponent({
   name: 'PokemonCardComponent',
-  props: ['pokemonRef'],
+  components: {
+    PokemonDetailComponent,
+  },
+  props: {
+    pokemonData: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       capitalizedLabel,
       convertBase,
-      iconRenderer: VIcon,
+      isDialogVisible: false,
       notFound: false,
       pokemon: {
         evolutions: [],
@@ -47,13 +55,13 @@ export default defineComponent({
     },
   },
   async beforeCreate() {
-    if (this.pokemonRef.url) {
-      const { data }: any = await axios.get(this.pokemonRef.url)
+    if (this.pokemonData.url) {
+      const { data }: any = await axios.get(this.pokemonData.url)
       this.pokemon = await this.parseData(data)
     }
   },
   async beforeMount() {
-    if (!this.pokemonRef.url)
+    if (!this.pokemonData.url)
       this.notFound = true
   },
   methods: {
@@ -70,6 +78,9 @@ export default defineComponent({
           || evolution.sprites.other.home.front_default
           || evolution.sprites.other['official-artwork'].front_default
       )
+    },
+    switchVisible() {
+      this.isDialogVisible = false
     },
   },
 })

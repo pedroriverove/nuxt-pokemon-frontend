@@ -66,11 +66,11 @@
         justify="center"
 >
     <VCol
-            :key="pokemonOnly"
+            :key="pokemonData"
             cols="12"
             md="8"
     >
-        <PokemonCardComponent :pokemon-ref="pokemonOnly"/>
+        <PokemonCardComponent :pokemon-data="pokemonData"/>
     </VCol>
 </VRow>
 <VRow v-show="!showLoading && grid">
@@ -80,7 +80,7 @@
             cols="12"
             md="6"
     >
-        <PokemonCardComponent :pokemon-ref="pokemon"/>
+        <PokemonCardComponent :pokemon-data="pokemon"/>
     </VCol>
 </VRow>
 <VRow v-show="!showLoading && grid">

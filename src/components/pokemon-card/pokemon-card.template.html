@@ -1,11 +1,10 @@
 <VCard v-if="notFound" color="primary">
     <VCarousel
             :continuous="false"
-            :delimiter-icon="() => h(iconRenderer, { icon: 'mdi-pokemon-go', size: '10' })"
             :show-arrows="false"
             class="carousel-delimiter-top-end"
             :height="140"
-            hide-delimiter-background
+            hide-delimiters
     >
         <VCarouselItem>
             <VCardText>
@@ -23,22 +22,33 @@
 <VCard v-else color="primary">
     <VCarousel
             :continuous="false"
-            :delimiter-icon="() => h(iconRenderer, { icon: 'mdi-pokemon-go', size: '10' })"
             :show-arrows="false"
             class="carousel-delimiter-top-end"
             height="auto"
-            hide-delimiter-background
+            hide-delimiters
     >
         <VCarouselItem>
             <VCardText>
                 <VRow>
                     <VCol cols="4">
-                        <h6 class="text-h6 text-white mb-1">
-                            {{ capitalizedLabel(pokemon.name) }}
-                        </h6>
-                        <p class="text-sm mb-0">
-                            #{{ pokemon.order }}
-                        </p>
+                        <VDialog
+                                v-model="isDialogVisible"
+                                fullscreen
+                                :scrim="false"
+                                transition="dialog-bottom-transition"
+                        >
+                            <template v-slot:activator="{ props }">
+                                <VBtn variant="outlined" v-bind="props">
+                                    <h6 class="text-h6 mb-1">
+                                        {{ capitalizedLabel(pokemon.name) }}
+                                    </h6>
+                                </VBtn>
+                                <p class="text-sm mb-0 mt-1">
+                                    #{{ pokemon.order }}
+                                </p>
+                            </template>
+                            <PokemonDetailComponent @visible="switchVisible" />
+                        </VDialog>
                     </VCol>
                     <VCol cols="8">
                         <VAvatar

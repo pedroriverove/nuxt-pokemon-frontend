@@ -18,7 +18,7 @@ export default defineComponent({
       message: 'Pikachu',
       next: '',
       pokemonList: [],
-      pokemonOnly: {
+      pokemonData: {
         name: '',
         url: '',
       },
@@ -79,7 +79,7 @@ export default defineComponent({
     },
     async clickSearch() {
       const text = this.message.toLowerCase()
-      this.pokemonOnly = await this.pokemonService.getPokemonByID(text)
+      this.pokemonData = await this.pokemonService.getPokemonByID(text)
 
       this.loadingSearch = true
 

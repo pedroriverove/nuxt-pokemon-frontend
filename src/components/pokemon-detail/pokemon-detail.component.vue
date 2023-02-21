@@ -3,7 +3,8 @@ import { defineComponent } from 'vue'
 import slider from '~/assets/images/illustrations/sidebar.png'
 
 export default defineComponent({
-  name: 'PokemonDetail',
+  name: 'PokemonDetailComponent',
+  emits: ['visible'],
   data() {
     return {
       grid: true,
@@ -11,8 +12,10 @@ export default defineComponent({
       slider,
     }
   },
-  async beforeCreate() {
-    console.log('pedro', this.$route.params.id)
+  methods: {
+    closeDialog() {
+      this.$emit('visible')
+    },
   },
 })
 </script>
