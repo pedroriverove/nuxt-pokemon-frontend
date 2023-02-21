@@ -1,4 +1,4 @@
-# Nuxt pokemon frontend
+# Nuxt Pokemon
 
 ### Used technology:
 
