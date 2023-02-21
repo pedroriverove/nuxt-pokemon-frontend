@@ -14,12 +14,7 @@ export default defineComponent({
   components: {
     PokemonDetailComponent,
   },
-  props: {
-    pokemonData: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['pokemonData'],
   data() {
     return {
       capitalizedLabel,
@@ -45,15 +40,6 @@ export default defineComponent({
       resolvePokemonTypes,
     }
   },
-  computed: {
-    src() {
-      return (
-        this.pokemon.sprites.other.dream_world.front_default
-          || this.pokemon.sprites.other.home.front_default
-          || this.pokemon.sprites.other['official-artwork'].front_default
-      )
-    },
-  },
   async beforeCreate() {
     if (this.pokemonData.url) {
       const { data }: any = await axios.get(this.pokemonData.url)
@@ -65,18 +51,18 @@ export default defineComponent({
       this.notFound = true
   },
   methods: {
-    async parseData({ name, id, types, sprites, weight, height, evolutions }: any) {
-      const data = { name, order: id, types, sprites, weight, height, evolutions }
+    async parseData({ name, id, types, sprites, weight, height, stats, evolutions }: any) {
+      const data = { name, order: id, types, sprites, weight, height, stats, evolutions }
       data.types = types.map(({ type }: any) => type.name)
       data.evolutions = await this.pokemonService.getEvolutions(data)
 
       return data
     },
-    slideImg(evolution: any) {
+    slideImg(pokemon: any) {
       return (
-        evolution.sprites.other.dream_world.front_default
-          || evolution.sprites.other.home.front_default
-          || evolution.sprites.other['official-artwork'].front_default
+        pokemon.sprites.other.dream_world.front_default
+          || pokemon.sprites.other.home.front_default
+          || pokemon.sprites.other['official-artwork'].front_default
       )
     },
     switchVisible() {

@@ -16,7 +16,8 @@ export default class PokemonService {
       return { next, previous, results }
     }
     catch (err) {
-      console.log('🚀 ~ function: getPokemonByID ~ error:', err)
+      // eslint-disable-next-line no-console
+      console.log('🚀 ~ function: getPokemonList ~ error:', err)
 
       return { next: '', previous: '', results: [] }
     }
@@ -31,6 +32,7 @@ export default class PokemonService {
       return { name, url: `${this.url}/pokemon/${id}` }
     }
     catch (err) {
+      // eslint-disable-next-line no-console
       console.log('🚀 ~ function: getPokemonByID ~ error:', err)
 
       return { name: '', url: '' }
@@ -44,7 +46,7 @@ export default class PokemonService {
       )
 
       if (!specie?.evolution_chain?.url)
-        return await this.getNewGenPokemon(pokemon, this.url)
+        return await this.getNewGenPokemon(pokemon)
 
       const { data: evolution } = await axios.get(specie.evolution_chain.url)
       const pokemonEvolution = evolution.chain
@@ -58,14 +60,37 @@ export default class PokemonService {
       )
     }
     catch (err) {
+      // eslint-disable-next-line no-console
       console.log('🚀 ~ function: getEvolutions ~ error:', err)
 
       return []
     }
   }
 
-  private async getNewGenPokemon(pokemon: any, url: string) {
-    const { data: pokemonData } = await axios.get(`${url}/pokemon/${pokemon.name}`)
+  async getDetails(pokemon: Pokemon) {
+    try {
+      const { data } = await axios.get(`${this.url}/pokemon-species/${pokemon.order}`)
+
+      console.log('pedro-1', data)
+
+      const prueba = data.flavor_text_entries.filter((el: any) => {
+        return el.language.name === 'es'
+      })[0].flavor_text
+
+      console.log('pedro-2', prueba)
+
+      return prueba
+    }
+    catch (err) {
+      // eslint-disable-next-line no-console
+      console.log('🚀 ~ function: getDetails ~ error:', err)
+
+      return { next: '', previous: '', results: [] }
+    }
+  }
+
+  private async getNewGenPokemon(pokemon: Pokemon) {
+    const { data: pokemonData } = await axios.get(`${this.url}/pokemon/${pokemon.name}`)
 
     return [pokemonData]
   }
@@ -92,10 +117,7 @@ export default class PokemonService {
     return url.split('/')[6]
   }
 
-  private parseData({ name, id, types, sprites, weight, height }: any) {
-    const data = { name, order: id, types, sprites, weight, height }
-    data.types = types.map(({ type }: any) => type.name)
-
-    return data
+  private parseData({ name, id, sprites }: any) {
+    return { name, order: id, sprites }
   }
 }

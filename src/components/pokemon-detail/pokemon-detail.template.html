@@ -4,7 +4,7 @@
             <VBtn
                     icon
                     variant="plain"
-                    @click="closeDialog"
+                    @click="switchVisible"
             >
                 <VIcon
                         color="white"
@@ -15,29 +15,27 @@
         </VToolbar>
     </div>
     <VCardText class="text-center pt-4">
-        <VAvatar :size="180">
+        <VAvatar
+                rounded="0"
+                size="180"
+        >
             <VImg
-                    v-if="slider"
-                    :src="slider"
+                    v-if="pokemon"
+                    :alt="pokemon.name"
+                    :src="slideImg(pokemon)"
             />
-            <span
-                    v-else
-                    class="text-5xl font-weight-semibold"
-            >
-                      Ivysaur
-                    </span>
         </VAvatar>
+        <h4 class="text-h4 mt-4 primary">
+            {{ capitalizedLabel(pokemon.name) }}
+        </h4>
         <h6 class="text-h6 mt-4">
-            Ivysaur
-        </h6>
-        <h6 class="text-h6 mt-4">
-            Se alimenta de la energía que brota de la tierra de Galar absorbiéndola por el núcleo del pecho
+            {{ detail }}
         </h6>
     </VCardText>
     <VCardText class="d-flex justify-center flex-wrap mt-3">
         <div class="d-flex align-center me-8 mb-2">
             <VAvatar
-                    :size="38"
+                    size="38"
                     class="me-3"
                     color="primary"
                     rounded
@@ -52,12 +50,12 @@
                 <h6 class="text-base font-weight-semibold">
                     Peso
                 </h6>
-                <span class="text-sm">96Kg</span>
+                <span class="text-sm">{{ convertBase(pokemon.weight) }}kg</span>
             </div>
         </div>
         <div class="d-flex align-center me-4 mb-2">
             <VAvatar
-                    :size="38"
+                    size="38"
                     class="me-3"
                     color="primary"
                     rounded
@@ -72,27 +70,7 @@
                 <h6 class="text-base font-weight-semibold">
                     Altura
                 </h6>
-                <span class="text-sm">0.7m</span>
-            </div>
-        </div>
-        <div class="d-flex align-center me-4 mb-2">
-            <VAvatar
-                    :size="38"
-                    class="me-3"
-                    color="primary"
-                    rounded
-                    variant="tonal"
-            >
-                <VIcon
-                        size="24"
-                        icon="mdi-current-ac"
-                />
-            </VAvatar>
-            <div>
-                <h6 class="text-base font-weight-semibold">
-                    Sexo
-                </h6>
-                <span class="text-sm">Desconocido</span>
+                <span class="text-sm">{{ convertBase(pokemon.height) }}m</span>
             </div>
         </div>
     </VCardText>
@@ -105,37 +83,23 @@
             <VCardText>
                 <VList class="card-list mt-2">
                     <VListItem>
-                        <VListItemTitle class="mb-4">
-                            <h6 class="text-base font-weight-semibold">
-                                Tipos:
-                            </h6>
+                        <h6 class="text-base font-weight-semibold">
+                            Tipos:
+                        </h6>
+                        <VListItemTitle
+                                class="mb-4"
+                        >
                             <VBtn
+                                    v-for="pokemonType in pokemon.types"
+                                    :key="pokemonType"
+                                    :color="resolvePokemonTypes(pokemonType).color"
                                     class="me-2"
-                                    color="primary"
                                     size="x-small"
                             >
-                                Fire
+                                {{ resolvePokemonTypes(pokemonType).name }}
                                 <VIcon
+                                        :icon="resolvePokemonTypes(pokemonType).icon"
                                         end
-                                        icon="mdi-omega"
-                                />
-                            </VBtn>
-                        </VListItemTitle>
-                    </VListItem>
-                    <VListItem class="mb-4">
-                        <VListItemTitle>
-                            <h6 class="text-base font-weight-semibold">
-                                Debilidad:
-                            </h6>
-                            <VBtn
-                                    class="me-2"
-                                    color="primary"
-                                    size="x-small"
-                            >
-                                Fire
-                                <VIcon
-                                        end
-                                        icon="mdi-omega"
                                 />
                             </VBtn>
                         </VListItemTitle>
@@ -146,40 +110,17 @@
                                 Evoluciones:
                             </h6>
                             <div class="v-avatar-group">
-                                <VAvatar :size="90">
-                                    <VImg :src="slider"/>
+                                <VAvatar
+                                        rounded="0"
+                                        size="140"
+                                        v-for="evolution in pokemon.evolutions"
+                                >
+                                    <VImg :src="slideImg(evolution)"/>
                                     <VTooltip
                                             activator="parent"
                                             location="bottom"
                                     >
-                                        John Doe
-                                    </VTooltip>
-                                </VAvatar>
-                                <VAvatar :size="90">
-                                    <VImg :src="slider"/>
-                                    <VTooltip
-                                            activator="parent"
-                                            location="bottom"
-                                    >
-                                        Jennie Obrien
-                                    </VTooltip>
-                                </VAvatar>
-                                <VAvatar :size="90">
-                                    <VImg :src="slider"/>
-                                    <VTooltip
-                                            activator="parent"
-                                            location="bottom"
-                                    >
-                                        Peter Harper
-                                    </VTooltip>
-                                </VAvatar>
-                                <VAvatar :size="90">
-                                    <VImg :src="slider"/>
-                                    <VTooltip
-                                            activator="parent"
-                                            location="bottom"
-                                    >
-                                        Vivian Padilla
+                                        {{ capitalizedLabel(evolution.name) }}
                                     </VTooltip>
                                 </VAvatar>
                             </div>
@@ -193,98 +134,22 @@
                 md="6"
         >
             <VCardText>
-                <div class="my-2">
+                <div
+                        v-for="(stats, key) in pokemon.stats"
+                        :key="key"
+                        class="my-2"
+                >
                     <div class="d-flex font-weight-semibold mt-3 mb-2">
                         <h6 class="text-base font-weight">
-                            PS
+                            {{ resolvePokemonStats(stats.stat.name).title }}
                         </h6>
                         <VSpacer/>
                     </div>
                     <VProgressLinear
-                            :model-value="65"
+                            :model-value="stats.base_stat"
                             color="primary"
                             height="8"
-                            max="165"
-                            rounded
-                            rounded-bar
-                    />
-                </div>
-                <div class="my-2">
-                    <div class="d-flex font-weight-semibold mt-3 mb-2">
-                        <h6 class="text-base font-weight">
-                            Ataque
-                        </h6>
-                        <VSpacer/>
-                    </div>
-                    <VProgressLinear
-                            :model-value="65"
-                            color="primary"
-                            height="8"
-                            max="165"
-                            rounded
-                            rounded-bar
-                    />
-                </div>
-                <div class="my-2">
-                    <div class="d-flex font-weight-semibold mt-3 mb-2">
-                        <h6 class="text-base font-weight">
-                            Defensa
-                        </h6>
-                        <VSpacer/>
-                    </div>
-                    <VProgressLinear
-                            :model-value="65"
-                            color="primary"
-                            height="8"
-                            max="165"
-                            rounded
-                            rounded-bar
-                    />
-                </div>
-                <div class="my-2">
-                    <div class="d-flex font-weight-semibold mt-3 mb-2">
-                        <h6 class="text-base font-weight">
-                            Ataque especial
-                        </h6>
-                        <VSpacer/>
-                    </div>
-                    <VProgressLinear
-                            :model-value="65"
-                            color="primary"
-                            height="8"
-                            max="165"
-                            rounded
-                            rounded-bar
-                    />
-                </div>
-                <div class="my-2">
-                    <div class="d-flex font-weight-semibold mt-3 mb-2">
-                        <h6 class="text-base font-weight">
-                            Defensa especial
-                        </h6>
-                        <VSpacer/>
-                    </div>
-                    <VProgressLinear
-                            :model-value="65"
-                            color="primary"
-                            height="8"
-                            max="165"
-                            rounded
-                            rounded-bar
-                    />
-                </div>
-                <div class="my-2">
-                    <div class="d-flex font-weight-semibold mt-3 mb-2">
-                        <h6 class="text-base font-weight">
-                            Velocidad
-                        </h6>
-                        <VSpacer/>
-                    </div>
-                    <VProgressLinear
-                            v-model="knowledge"
-                            color="primary"
-                            height="8"
-                            max="165"
+                            max="200"
                             rounded
                             rounded-bar
                     />

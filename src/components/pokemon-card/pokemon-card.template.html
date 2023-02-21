@@ -3,7 +3,7 @@
             :continuous="false"
             :show-arrows="false"
             class="carousel-delimiter-top-end"
-            :height="140"
+            height="140"
             hide-delimiters
     >
         <VCarouselItem>
@@ -47,7 +47,10 @@
                                     #{{ pokemon.order }}
                                 </p>
                             </template>
-                            <PokemonDetailComponent @visible="switchVisible" />
+                            <PokemonDetailComponent
+                                    :pokemon="pokemon"
+                                    @switchVisible="switchVisible"
+                            />
                         </VDialog>
                     </VCol>
                     <VCol cols="8">
@@ -92,7 +95,7 @@
                                         :color="resolvePokemonTypes(pokemonType).color"
                                         class="me-2"
                                 >
-                                    {{ pokemonType }}
+                                    {{ resolvePokemonTypes(pokemonType).name }}
                                     <VIcon
                                             end
                                             :icon="resolvePokemonTypes(pokemonType).icon"
@@ -136,9 +139,9 @@
                     >
                         <img
                                 v-if="pokemon"
-                                :src="src"
-                                class="card-website-analytics-img"
                                 :alt="pokemon.name"
+                                :src="slideImg(pokemon)"
+                                class="card-website-analytics-img"
                         />
                     </VCol>
                 </VRow>

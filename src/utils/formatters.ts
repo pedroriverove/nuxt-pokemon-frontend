@@ -6,45 +6,62 @@ export const capitalizedLabel = (label: string) => {
 
 export const resolvePokemonTypes = (type: string) => {
   if (type === 'normal')
-    return { color: '#8D6E63', icon: 'mdi-omega' }
+    return { name: 'normal', color: '#8D6E63', icon: 'mdi-omega' }
   if (type === 'fire')
-    return { color: '#EF5350', icon: 'mdi-fire' }
+    return { name: 'fuego', color: '#EF5350', icon: 'mdi-fire' }
   if (type === 'water')
-    return { color: '#5C6BC0', icon: 'mdi-waves' }
+    return { name: 'agua', color: '#5C6BC0', icon: 'mdi-waves' }
   if (type === 'grass')
-    return { color: '#66BB6A', icon: 'mdi-grass' }
+    return { name: 'planta', color: '#66BB6A', icon: 'mdi-grass' }
   if (type === 'electric')
-    return { color: '#C79100', icon: 'mdi-lightning-bolt-circle' }
+    return { name: 'electrico', color: '#C79100', icon: 'mdi-lightning-bolt-circle' }
   if (type === 'ice')
-    return { color: '#2196F3', icon: 'mdi-skate' }
+    return { name: 'hielo', color: '#2196F3', icon: 'mdi-skate' }
   if (type === 'fighting')
-    return { color: '#BA68C8', icon: 'mdi-dumbbell' }
+    return { name: 'lucha', color: '#BA68C8', icon: 'mdi-dumbbell' }
   if (type === 'poison')
-    return { color: '#FF7043', icon: 'mdi-deathly-hallows' }
+    return { name: 'veneno', color: '#FF7043', icon: 'mdi-deathly-hallows' }
   if (type === 'ground')
-    return { color: '#00897B', icon: 'mdi-dots-hexagon' }
+    return { name: 'tierra', color: '#00897B', icon: 'mdi-dots-hexagon' }
   if (type === 'flying')
-    return { color: '#546E7A', icon: 'mdi-bee' }
+    return { name: 'volador', color: '#546E7A', icon: 'mdi-bee' }
   if (type === 'psychic')
-    return { color: '#FFC107', icon: 'mdi-bullseye' }
+    return { name: 'psiquico', color: '#FFC107', icon: 'mdi-bullseye' }
   if (type === 'bug')
-    return { color: '#CDDC39', icon: 'mdi-bug' }
+    return { name: 'bicho', color: '#CDDC39', icon: 'mdi-bug' }
   if (type === 'rock')
-    return { color: '#9E9E9E', icon: 'mdi-mirror' }
+    return { name: 'roca', color: '#9E9E9E', icon: 'mdi-mirror' }
   if (type === 'ghost')
-    return { color: '#1B5E20', icon: 'mdi-ghost' }
+    return { name: 'fantasma', color: '#1B5E20', icon: 'mdi-ghost' }
   if (type === 'dark')
-    return { color: '#009688', icon: 'mdi-brightness-6' }
+    return { name: 'siniestro', color: '#009688', icon: 'mdi-brightness-6' }
   if (type === 'dragon')
-    return { color: '#FFFF00', icon: 'mdi-jellyfish' }
+    return { name: 'dragon', color: '#FFFF00', icon: 'mdi-jellyfish' }
   if (type === 'steel')
-    return { color: '#607D8B', icon: 'mdi-anvil' }
+    return { name: 'acero', color: '#607D8B', icon: 'mdi-anvil' }
   if (type === 'fairy')
-    return { color: '#9575CD', icon: 'mdi-string-lights' }
+    return { name: 'hada', color: '#9575CD', icon: 'mdi-string-lights' }
 
-  return { color: 'info', icon: 'mdi-record' }
+  return { name: 'undefined', color: 'info', icon: 'mdi-record' }
 }
 
 export const convertBase = (value: number) => {
   return value / 10
+}
+
+export const resolvePokemonStats = (name: string) => {
+  if (name === 'hp')
+    return { title: 'PS' }
+  if (name === 'attack')
+    return { title: 'Ataque' }
+  if (name === 'defense')
+    return { title: 'Defensa' }
+  if (name === 'special-attack')
+    return { title: 'Ataque especial' }
+  if (name === 'special-defense')
+    return { title: 'Defensa especial' }
+  if (name === 'speed')
+    return { title: 'Velocidad' }
+
+  return { title: 'undefined' }
 }
