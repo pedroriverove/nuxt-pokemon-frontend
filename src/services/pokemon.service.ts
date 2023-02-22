@@ -67,9 +67,9 @@ export default class PokemonService {
     }
   }
 
-  async getDetails(pokemon: Pokemon) {
+  async getDescription(order: number) {
     try {
-      const { data } = await axios.get(`${this.url}/pokemon-species/${pokemon.order}`)
+      const { data } = await axios.get(`${this.url}/pokemon-species/${order}`)
 
       return data.flavor_text_entries.filter((el: any) => {
         return el.language.name === 'es'

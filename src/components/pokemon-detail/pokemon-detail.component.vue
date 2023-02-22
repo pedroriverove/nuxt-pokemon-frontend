@@ -1,6 +1,5 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import slider from '~/assets/images/illustrations/sidebar.png'
 import PokemonService from '~/services/pokemon.service'
 import {
   capitalizedLabel,
@@ -17,17 +16,14 @@ export default defineComponent({
     return {
       capitalizedLabel,
       convertBase,
-      grid: true,
-      knowledge: 82,
       pokemonService: new PokemonService(),
       resolvePokemonStats,
       resolvePokemonTypes,
-      slider,
-      detail: [],
+      description: '',
     }
   },
   async beforeMount() {
-    this.detail = await this.pokemonService.getDetails(this.pokemon)
+    this.description = await this.pokemonService.getDescription(this.pokemon.order)
   },
   methods: {
     switchVisible() {
