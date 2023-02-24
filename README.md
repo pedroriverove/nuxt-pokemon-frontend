@@ -1,10 +1,10 @@
-# Nuxt Pokemon
+# Nuxt | Vue3 | Vuetify | PokeAPI
 
 Project to show a list of pokemon, with the most relevant information of 
 each pokemon, in the same way that they can be filtered, paginated and have a
-viewer for each pokemon
+viewer for each pokemon.
 
-### Used technology:
+## Used technology
 
 - [Nuxt](https://nuxt.com/)
 - [Vue3](https://vuejs.org/)
